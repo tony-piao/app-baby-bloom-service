@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <Properties>
+        <property name="console_log_pattern">%d{MM-dd HH:mm:ss,SSS} [%t %-5p] %m%n</property>
+        <property name="file_log_pattern">%d{MM-dd HH:mm:ss,SSS} [%t %-5p] %m%n</property>
+        <property name="default_out_level">DEBUG</property>
+        <property name="rolling_filePattern">%d{yyyy-MM-dd}.log</property>
+    </Properties>
+
+    <appenders>
+        <!-- 用来定义输出到控制台的配置 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- 设置控制台只输出level及以上级别的信息(onMatch),其他的直接拒绝(onMismatch)-->
+            <ThresholdFilter level="${default_out_level}" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!-- 设置输出格式,不设置默认为:%m%n -->
+            <PatternLayout pattern="${console_log_pattern}"/>
+        </Console>
+
+        <RollingFile name="RollingFileBusiness" fileName="logs/business.log" filePattern="logs/business_${rolling_filePattern}">
+            <PatternLayout pattern="${file_log_pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <Filters>
+                <ThresholdFilter level="${default_out_level}" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+        <RollingFile name="RollingFileError" fileName="logs/error.log" filePattern="logs/error_${rolling_filePattern}">
+            <PatternLayout pattern="${file_log_pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+        <RollingFile name="RollingFileFrame" fileName="logs/frame.log" filePattern="logs/frame_${rolling_filePattern}">
+            <PatternLayout pattern="${file_log_pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+    </appenders>
+
+    <!--然后定义logger,只有定义了logger并引入的appender,appender才会生效-->
+    <loggers>
+        <logger name="baby.businessLog" level="${default_out_level}" additivity="false">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileBusiness"/>
+        </logger>
+        <logger name="baby.errorLog" level="ERROR" additivity="false">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileError"/>
+        </logger>
+
+
+        //sql
+        <!--<logger name="com.babybloom.web.mapper" level="DEBUG" additivity="false">
+            <appender-ref ref="Console"/>
+        </logger>-->
+        <!--建立一个默认的root的logger-->
+        <root level="ERROR">
+            <appender-ref ref="RollingFileFrame"/>
+            <appender-ref ref="Console"/>
+        </root>
+    </loggers>
+</Configuration>

@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: dev
+logging:
+  config: classpath:log4j2.xml
+#主键的数据中心配置
+primarykey:
+  datacenter: 0
+  worker: 0

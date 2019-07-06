@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.babybloom.web.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.babybloom.web.model.po.UserInfo">
+    <id column="guid" jdbcType="BIGINT" property="guid" />
+    <result column="phoneNumber" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickName" />
+    <result column="imgUrl" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="gender" jdbcType="TINYINT" property="gender" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="registrationTime" jdbcType="TIMESTAMP" property="registrationTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="updateUser" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    guid, phoneNumber, nickName, imgUrl, gender, city, province, country, registrationTime, 
+    updateTime, updateUser
+  </sql>
+  <select id="selectByExample" parameterType="com.babybloom.web.model.po.UserInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_info
+    where guid = #{guid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_user_info
+    where guid = #{guid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.babybloom.web.model.po.UserInfoExample">
+    delete from t_user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.babybloom.web.model.po.UserInfo">
+    insert into t_user_info (guid, phoneNumber, nickName, 
+      imgUrl, gender, city, 
+      province, country, registrationTime, 
+      updateTime, updateUser)
+    values (#{guid,jdbcType=BIGINT}, #{phoneNumber,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}, #{city,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{registrationTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.babybloom.web.model.po.UserInfo">
+    insert into t_user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="guid != null">
+        guid,
+      </if>
+      <if test="phoneNumber != null">
+        phoneNumber,
+      </if>
+      <if test="nickName != null">
+        nickName,
+      </if>
+      <if test="imgUrl != null">
+        imgUrl,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="registrationTime != null">
+        registrationTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="updateUser != null">
+        updateUser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="guid != null">
+        #{guid,jdbcType=BIGINT},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationTime != null">
+        #{registrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.babybloom.web.model.po.UserInfoExample" resultType="java.lang.Long">
+    select count(*) from t_user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_user_info
+    <set>
+      <if test="record.guid != null">
+        guid = #{record.guid,jdbcType=BIGINT},
+      </if>
+      <if test="record.phoneNumber != null">
+        phoneNumber = #{record.phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickName != null">
+        nickName = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgUrl != null">
+        imgUrl = #{record.imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=TINYINT},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null">
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registrationTime != null">
+        registrationTime = #{record.registrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        updateUser = #{record.updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_user_info
+    set guid = #{record.guid,jdbcType=BIGINT},
+      phoneNumber = #{record.phoneNumber,jdbcType=VARCHAR},
+      nickName = #{record.nickName,jdbcType=VARCHAR},
+      imgUrl = #{record.imgUrl,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=TINYINT},
+      city = #{record.city,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      registrationTime = #{record.registrationTime,jdbcType=TIMESTAMP},
+      updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      updateUser = #{record.updateUser,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.babybloom.web.model.po.UserInfo">
+    update t_user_info
+    <set>
+      <if test="phoneNumber != null">
+        phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        nickName = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        imgUrl = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationTime != null">
+        registrationTime = #{registrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        updateUser = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where guid = #{guid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.babybloom.web.model.po.UserInfo">
+    update t_user_info
+    set phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
+      nickName = #{nickName,jdbcType=VARCHAR},
+      imgUrl = #{imgUrl,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=TINYINT},
+      city = #{city,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      registrationTime = #{registrationTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      updateUser = #{updateUser,jdbcType=BIGINT}
+    where guid = #{guid,jdbcType=BIGINT}
+  </update>
+  <select id="selectOneByExample" parameterType="com.babybloom.web.model.po.UserInfoExample" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    limit 1
+  </select>
+  <insert id="batchInsert" parameterType="map">
+    insert into t_user_info
+    (guid, phoneNumber, nickName, imgUrl, gender, city, province, country, registrationTime, 
+      updateTime, updateUser)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.guid,jdbcType=BIGINT}, #{item.phoneNumber,jdbcType=VARCHAR}, #{item.nickName,jdbcType=VARCHAR}, 
+        #{item.imgUrl,jdbcType=VARCHAR}, #{item.gender,jdbcType=TINYINT}, #{item.city,jdbcType=VARCHAR}, 
+        #{item.province,jdbcType=VARCHAR}, #{item.country,jdbcType=VARCHAR}, #{item.registrationTime,jdbcType=TIMESTAMP}, 
+        #{item.updateTime,jdbcType=TIMESTAMP}, #{item.updateUser,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" parameterType="map">
+    insert into t_user_info (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.escapedColumnName}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'guid'.toString() == column.value">
+          #{item.guid,jdbcType=BIGINT}
+        </if>
+        <if test="'phoneNumber'.toString() == column.value">
+          #{item.phoneNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="'nickName'.toString() == column.value">
+          #{item.nickName,jdbcType=VARCHAR}
+        </if>
+        <if test="'imgUrl'.toString() == column.value">
+          #{item.imgUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="'gender'.toString() == column.value">
+          #{item.gender,jdbcType=TINYINT}
+        </if>
+        <if test="'city'.toString() == column.value">
+          #{item.city,jdbcType=VARCHAR}
+        </if>
+        <if test="'province'.toString() == column.value">
+          #{item.province,jdbcType=VARCHAR}
+        </if>
+        <if test="'country'.toString() == column.value">
+          #{item.country,jdbcType=VARCHAR}
+        </if>
+        <if test="'registrationTime'.toString() == column.value">
+          #{item.registrationTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'updateTime'.toString() == column.value">
+          #{item.updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'updateUser'.toString() == column.value">
+          #{item.updateUser,jdbcType=BIGINT}
+        </if>
+      </foreach>
+      )
+    </foreach>
+  </insert>
+</mapper>

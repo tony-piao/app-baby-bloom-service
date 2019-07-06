@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 关闭二级缓存 -->
+		<setting name="cacheEnabled" value="false"/>
+		<setting name="lazyLoadingEnabled" value="false" />
+		<!-- sql日志 -->
+<!--         <setting name="logImpl" value="LOG4J2" />-->
+	</settings>
+	
+	
+	<!-- 别名定义 -->
+	<typeAliases>
+	</typeAliases>
+
+</configuration>

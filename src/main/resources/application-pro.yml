@@ -1,0 +1,41 @@
+server:
+  port: 80
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password:
+  timeout: 2000
+  max-active: 8
+  max-wait: 6000
+  max-idle: 0
+# 自定义的主数据源配置信息,目前只有一个数据库
+baby:
+  datasource:
+    #druid相关配置
+    druid:
+      #监控统计拦截的filters
+      filters: stat
+      driverClassName: com.mysql.cj.jdbc.Driver
+      #配置基本属性
+      url: jdbc:mysql://148.70.241.111:3306/babybloom?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&useSSL=false&serverTimezone=UTC
+      username: tony.piao
+      password: GmCoh4Pr5gi7hzbc
+      #配置初始化大小/最小/最大
+      initialSize: 10
+      minIdle: 10
+      maxActive: 20
+      #获取连接等待超时时间
+      maxWait: 6000
+      #间隔多久进行一次检测，检测需要关闭的空闲连接
+      timeBetweenEvictionRunsMillis: 60000
+      #一个连接在池中最小生存的时间
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 'x'
+      testWhileIdle: false
+      testOnBorrow: false
+      testOnReturn: false
+      #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+      poolPreparedStatements: false
+      maxPoolPreparedStatementPerConnectionSize: 20
+login:
+  expire-time: 7200
