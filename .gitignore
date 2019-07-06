@@ -1,8 +1,9 @@
+### 过滤配置文件 ###
+/src/main/resources/*.yml
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
 
 ### STS ###
 .apt_generated
@@ -11,7 +12,7 @@ target/
 .project
 .settings
 .springBeans
-.sts4-cache
+.sts4-cachet
 
 ### IntelliJ IDEA ###
 .idea
@@ -29,3 +30,4 @@ build/
 
 ### VS Code ###
 .vscode/
+
